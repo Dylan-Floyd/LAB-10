@@ -18,7 +18,7 @@ describe('API response formatting', () => {
       trail_url: 'https://prescriptiontrails.org/trail/1/tingley-field/',
       conditions: '6-foot+ wide sidewalk, 4-foot wide gravel on 2 sides',
       condition_date: 'Mon, 30 Sep 2019',
-      condition_time: '18:55:21 GMT'
+      condition_time: expect.any(String)
     }];
 
     const apiData = [{
