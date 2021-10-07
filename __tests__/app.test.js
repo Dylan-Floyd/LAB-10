@@ -58,4 +58,18 @@ describe('app routes', () => {
 
     expect(data.body).toEqual(expect.arrayContaining([expectation]));
   });
+
+  test('GET /weather returns weather info', async () => {
+    const expectation = {
+      forecast: expect.any(String),
+      time: expect.any(String)
+    };
+
+    const data = await fakeRequest(app)
+      .get('/weather?latitude=47.606210&longitude=-122.332071')
+      .expect('Content-Type', /json/)
+      .expect(200);
+
+    expect(data.body).toEqual(expect.arrayContaining([expectation]));
+  });
 });

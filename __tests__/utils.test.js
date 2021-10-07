@@ -6,6 +6,7 @@ const {
 } = require('../lib/utils.js');
 
 describe('API response formatting', () => {
+
   test('Trail data is formatted correctly', () => {
     const expectation = [{
       name: 'Tingley Field',
@@ -16,8 +17,8 @@ describe('API response formatting', () => {
       summary: 'This redeveloped park provides a catchment basin in monsoon season%2C and the new recreation facilities and walking trail are great for the whole family.',
       trail_url: 'https://prescriptiontrails.org/trail/1/tingley-field/',
       conditions: '6-foot+ wide sidewalk, 4-foot wide gravel on 2 sides',
-      condition_date: 'Mon Sep 30 2019',
-      condition_time: '11:55:21 GMT-0700 (Pacific Daylight Time)'
+      condition_date: 'Mon, 30 Sep 2019',
+      condition_time: '18:55:21 GMT'
     }];
 
     const apiData = [{
@@ -125,7 +126,7 @@ describe('API response formatting', () => {
 
     const apiData = [{
       place_id: '274178303',
-      licence: 'https://locationiq.com/attribution', 
+      licence: 'https://locationiq.com/attribution',
       osm_type: 'relation',
       osm_id: '186579',
       boundingbox: ['45.432536', '45.6528812', '-122.8367489', '-122.4720252'],
@@ -139,6 +140,58 @@ describe('API response formatting', () => {
     }];
 
     const result = formatLocationResponse(apiData);
+    expect(result).toEqual(expectation);
+  });
+
+  test('Weather data is formatted correctly', () => {
+
+    const expectation = [{
+      forecast: 'Broken clouds',
+      time: 'Thu, 07 Oct 2021'
+    }];
+
+    const apiData = [{
+      moonrise_ts: 1633621447,
+      wind_cdir: 'ENE',
+      rh: 79,
+      pres: 1015.25,
+      high_temp: 13.2,
+      sunset_ts: 1633657017,
+      ozone: 326.344,
+      moon_phase: 0.0377817,
+      wind_gust_spd: 5,
+      snow_depth: 0,
+      clouds: 42,
+      ts: 1633590060,
+      sunrise_ts: 1633616254,
+      app_min_temp: 8.1,
+      wind_spd: 1.90089,
+      pop: 20,
+      wind_cdir_full: 'east-northeast',
+      slp: 1020.33,
+      moon_phase_lunation: 0.05,
+      valid_date: '2021-10-07',
+      app_max_temp: 13.2,
+      vis: 24.096,
+      dewpt: 6.6,
+      snow: 0,
+      uv: 2.89648,
+      weather: { icon: 'c03d', code: 803, description: 'Broken clouds' },
+      wind_dir: 62,
+      max_dhi: null,
+      clouds_hi: 8,
+      precip: 0.0625,
+      low_temp: 7.3,
+      max_temp: 13.2,
+      moonset_ts: 1633660292,
+      datetime: '2021-10-07',
+      temp: 10.3,
+      min_temp: 8.1,
+      clouds_mid: 0,
+      clouds_low: 38
+    }];
+
+    const result = formatWeatherResponse(apiData);
     expect(result).toEqual(expectation);
   });
 });
